@@ -7,6 +7,7 @@ import { Model, model, Schema } from "mongoose"
 
 export interface IUser {
     name: string;
+    word: string;
     status: 'UNDERCOVER' | 'USER';
 }
 
@@ -25,6 +26,10 @@ export interface IUserModel extends Model<IUserDocument> {
 
 const UserSchema = new Schema<IUserDocument, IUserModel>({
     name: {
+        type: String,
+        required: true,
+    },
+    word: {
         type: String,
         required: true,
     },

@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const UserModel = require('../models/userModels');
+const getUndercoverWord = require('../utils/randomWord');
+const getCivilsWord = require('../utils/randomWord');
 
 /**
  * @api { POST } /user Create a user
@@ -9,22 +11,25 @@ const UserModel = require('../models/userModels');
  * @apiGroup User
  *
  */
-
 router.post('/', async (req: any, res: any) => {
     try {
-        const user = UserModel.create({
-            name: "John nash",
-            status: "USER",
-        })
+        const civilsWord = await getCivilsWord();
 
+        const user = UserModel.create({
+            name: "Alex JS",
+            word: civilsWord,
+            status: 'UNDERCOVER',
+        });
+
+        await user.save();
         res.send(user);
+
     } catch (err) {
         res.body = {
             message: "???",
         }
     }
 })
-
 
 /**
  * @api { GET } / Get all users
