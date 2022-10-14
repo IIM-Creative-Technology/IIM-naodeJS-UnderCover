@@ -27,6 +27,16 @@ async function createApp() {
   // link routes
   app.use('/user', userRoutes);
 
+  // render the index.html file
+  app.get('/', (req: any, res: any) => {
+    res.sendFile(path.resolve(process.cwd(), 'public', 'index.html'));
+  });
+
+  // retune the game.html file
+  app.get('/game', (req: any, res: any) => {
+    res.sendFile(path.resolve(process.cwd(), 'public', 'game.html'));
+  });
+
   return app;
 }
 main();

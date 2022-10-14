@@ -16,13 +16,15 @@ router.post('/', async (req: any, res: any) => {
         const civilsWord = await getCivilsWord();
 
         const user = UserModel.create({
-            name: "Alex JS",
+            name: "test",
             word: civilsWord,
             status: 'UNDERCOVER',
         });
 
         await user.save();
         res.send(user);
+
+        res.redirect('/game');
 
     } catch (err) {
         res.body = {
