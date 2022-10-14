@@ -13,6 +13,7 @@ async function main(): Promise<void> {
     console.log(`Listening on port http://localhost:${port}`);
 }
 
+
 async function createApp(): Promise<express.Application> {
     const app = express();
 
