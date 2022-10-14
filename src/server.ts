@@ -18,7 +18,7 @@ async function main() {
   const serveur = await createSocket();
 
   server.listen(port, () => {
-    console.log(`Server listening on port ${port}`);
+    console.log(`Server listening on port http://localhost:${port}`);
   });
 }
 
@@ -39,6 +39,7 @@ async function createSocket() {
     });
 
   });
+
 }
 
 async function createApp() {
