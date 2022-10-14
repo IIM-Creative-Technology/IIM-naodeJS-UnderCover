@@ -29,5 +29,4 @@ async function createApp() {
 
   return app;
 }
-
 main();
