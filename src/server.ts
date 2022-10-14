@@ -1,6 +1,8 @@
 import * as dotenv from "dotenv";
 import express from "express";
 import path from "path";
+import  roleGenerator from "./utils/role-generator";
+
 
 dotenv.config({
     path: path.resolve(process.cwd(), process.env.NODE_ENV === "development" ? '.env.development' : '.env'),
@@ -23,3 +25,4 @@ async function createApp(): Promise<express.Application> {
 }
 createApp();
 main();
+roleGenerator()
