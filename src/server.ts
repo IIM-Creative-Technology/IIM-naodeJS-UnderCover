@@ -1,25 +1,42 @@
-import * as dotenv from "dotenv";
-import express from "express";
-import path from "path";
+const express = require('express');
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const path = require("path");
+const userRoutes = require('./routes/user');
 
 dotenv.config({
-    path: path.resolve(process.cwd(), process.env.NODE_ENV === "development" ? '.env.development' : '.env'),
+  path: path.resolve(process.cwd(), process.env.NODE_ENV === "development" ? '.env.development' : '.env'),
 });
 
 async function main(): Promise<void> {
-    const port = process.env.PORT || 3000;
-    const app = express();
-    app.listen(port);
-    console.log(`Listening on port http://localhost:${port}`);
+  const app = await createApp();
+  const port = process.env.PORT || 4200;
+
+  app.listen(port);
+  console.log(`Listening on port http://localhost:${port}`);
 }
 
-async function createApp(): Promise<express.Application> {
-    const app = express();
+async function createApp() {
+  const app = express();
+  app.use(express.json());
 
-    /* Add Routes Here */
-    // app.use(stock.routes());
+  console.log("Connecting to database...");
+  await mongoose.connect(`${process.env.MONGODB_SERVER_URL}`);
+  console.log("Connected to database");
 
-    return app;
+  // link routes
+  app.use('/user', userRoutes);
+
+  // render the index.html file
+  app.get('/', (req: any, res: any) => {
+    res.sendFile(path.resolve(process.cwd(), 'public', 'index.html'));
+  });
+
+  // retune the game.html file
+  app.get('/game', (req: any, res: any) => {
+    res.sendFile(path.resolve(process.cwd(), 'public', 'game.html'));
+  });
+
+  return app;
 }
-createApp();
 main();
