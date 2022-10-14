@@ -1,5 +1,4 @@
 {
-  
   "name": "iim-nodejs-undercover-api",
   "version": "1.0.0",
   "main": "./build/server.js",
@@ -26,12 +25,18 @@
     "socket.io": "^4.5.2",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^4.8.4"
+    "typescript": "*"
   },
   "devDependencies": {
     "@types/node": "^17.0.24",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
     "axios": "^0.27.2",
     "dotenv": "^16.0.1",
+    "eslint": "^8.0.1",
+    "eslint-config-standard-with-typescript": "^23.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0",
     "koa": "^2.13.4",
     "koa-body": "^4.2.0",
     "koa-router": "^10.1.1",
@@ -39,4 +44,3 @@
     "mongoose": "^6.3.0"
   }
 }
-
