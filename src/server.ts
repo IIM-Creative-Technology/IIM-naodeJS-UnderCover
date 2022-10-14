@@ -4,16 +4,41 @@ const dotenv = require("dotenv");
 const path = require("path");
 const userRoutes = require('./routes/user');
 
+const app = require('express')();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+
 dotenv.config({
   path: path.resolve(process.cwd(), process.env.NODE_ENV === "development" ? '.env.development' : '.env'),
 });
 
-async function main(): Promise<void> {
+async function main() {
   const app = await createApp();
   const port = process.env.PORT || 4200;
+  const serveur = await createSocket();
 
-  app.listen(port);
-  console.log(`Listening on port http://localhost:${port}`);
+  server.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
+  });
+}
+
+async function createSocket() {
+  app.get('/game', (req: any, res: any) => {
+    res.sendFile(path.resolve(process.cwd(), 'public', 'game.html'));
+  })
+
+  io.on('connection', (socket: any) => {
+    console.log('un utilisater s\'est connecté ')
+
+    socket.on('disconnect', () => {
+      console.log('Un utilisateur s\'est déconnecté.');
+    });
+
+    socket.on('chat message', (msg: any) => {
+      io.emit('chat message', msg);
+    });
+
+  });
 }
 
 async function createApp() {
@@ -39,4 +64,9 @@ async function createApp() {
 
   return app;
 }
+
+
 main();
+
+
+
